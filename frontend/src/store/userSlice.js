@@ -4,7 +4,7 @@ import { STATUSES } from "./buyersSlice";
 
 export const fetchUser = createAsyncThunk('user/fetch', async (props) => {
     const response = await fetch('http://localhost:8020/api/auth/getuser', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'token': localStorage.getItem('token')

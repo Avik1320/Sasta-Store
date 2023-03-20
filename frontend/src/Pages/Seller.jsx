@@ -49,9 +49,6 @@ const Seller = () => {
                     <SellerProducts/>
                     <SellerProducts/>
                     <SellerProducts/>
-                   
-
-
                 </div>
             </div>
         </div >

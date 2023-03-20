@@ -10,11 +10,12 @@ import Card from '../components/Card';
 
 const Foods = (props) => {
     const dispatch = useDispatch();
-    const {data:users,status} = useSelector((elem)=>elem.product)
-    
+    const { data: users, status } = useSelector((elem) => elem.product)
+
 
     useEffect(() => {
-        dispatch(fetchProducts(props.link));
+        dispatch(fetchProducts(`https://fakestoreapi.com/products`));
+
     }, []);
 
     return (
@@ -23,7 +24,7 @@ const Foods = (props) => {
 
             <div className="product_slider">
                 {status === STATUSES.LOADING ?
-                    <MagnifyingGlass
+                    (<MagnifyingGlass
                         visible={true}
                         height="80"
                         width="80"
@@ -32,15 +33,15 @@ const Foods = (props) => {
                         wrapperclassName="MagnifyingGlass-wrapper"
                         glassColor='#c0efff'
                         color='#e15b64'
-                    />
-                :
-                    users.map((itm,idx) => {
-                        return (
+                    />)
+                    :
+                        users.map((itm, idx) => {
+                            return (
 
-                            <Card img={itm.image} title={itm.title} price={itm.price }/>
-                        )
-                    
-                    })
+                                <Card img={itm.image} title={itm.title} price={itm.price} id={itm.id} key={idx} />
+                            )
+
+                        })
                 }
             </div>
         </div>

@@ -21,9 +21,6 @@ const Navbar = ({ page }) => {
 
   const dispatch = useDispatch()
 
-
-
-
   // const { data, status } = useSelector((state) => state.buyer);
   const { data, status } = useSelector((state) => state.user);
 
@@ -35,17 +32,15 @@ const Navbar = ({ page }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('fname');
-    localStorage.removeItem('lname');
-    localStorage.removeItem('isAdmin');
     window.location.reload();
   }
 
   useEffect(() => {
     if (localStorage.getItem('token'))
+    {
       dispatch(fetchUser(localStorage.getItem('token')))
-    if (data.fname) setUser(data)
-    // console.log("navbar logged");
+    }
+      // }
   }, [])
 
 
@@ -66,20 +61,20 @@ const Navbar = ({ page }) => {
         <Link to="/" className="title">SastaStore</Link>
       </div>
       <div className="nav_acc">
-        {page === "cart" || page === "seller" ? "" : <Link to="cart" className="profile">
+        {page === "seller" ? "" : <Link to="cart" className="profile">
           <FontAwesomeIcon icon={faCartShopping} />
           <span >Cart</span>
         </Link>}
-        {page === "cart" || page === "seller" ? "" : <Link to="seller" className="profile">
+        {/* 
+        { page === "seller" ? "" : <Link to="seller" className="profile">
           Seller
         </Link>}
-        <Link to="/auth" className="profile">
+         */}
+        <Link to="/auth" className="profile" style={{ pointerEvents: `${localStorage.getItem('token') ? "none":""}` }}>
           <FontAwesomeIcon icon={faUser} />
-          <span className="text">{data.fname ? data.fname : "User"}</span>
+          <span className="text">{data.username ? data.username : "User"}</span>
         </Link>
-        {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}>
-          <FontAwesomeIcon icon={faPowerOff} />
-        </div> : ""}
+        {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""}
         {page === "seller" && <button className='additem'>Add Product</button>}
       </div>
       <div className="search">

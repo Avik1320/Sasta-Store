@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -41,7 +42,7 @@ const navigate = useNavigate();
     const cred ={
       email: e.target.email.value,
       password: e.target.password.value,
-      
+      cookie: Cookies.jwttoken
     }
     dispatch(loginBuyer(cred))
     

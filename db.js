@@ -1,24 +1,31 @@
-const mongoose = require('mongoose');
+// new
 require('dotenv').config();
+const mongoose = require("mongoose");
 
-const connectToMongo = async () => {
-    try {
-        if (process.env.DATABASE_ID == null) {
-            const conn = await mongoose.connect('mongodb://127.0.0.1:27017/meranote')
-                .then(() => { console.log("successfully connected with mongo"); })
-                .catch((err) => { console.log(err) });
-        }
-        else {
-    const conn = await mongoose.connect(`mongodb+srv://${process.env.DATABASE_ID}:${process.env.DATABASE_PASS}@sastastore.1xmvojq.mongodb.net/user?retryWrites=true&w=majority`, { useNewUrlParser: true })
-                .then(() => { console.log("successfully connected with mongo atlas") })
-                .catch((err) => { console.log(err) });
-        }
+// DB
+const mongoURI = `mongodb+srv://${process.env.DATABASE_ID}:${process.env.DATABASE_PASS}@sastastore.1xmvojq.mongodb.net/user?retryWrites=true&w=majority`;
 
-
-    } catch (error) {
-        console.log(error);
-    }
-
+// connection
+let conn;
+if (process.env.DATABASE_ID == null) {
+    conn = mongoose.createConnection('mongodb://127.0.0.1:27017/meranote', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+}
+else {
+    conn = mongoose.createConnection(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
 }
 
-module.exports = connectToMongo;
+conn.on('connected', () => {
+    console.log('MongoDB connected!');
+});
+conn.on('error', (err) => {
+    console.log('MongoDB connection error: ' + err);
+});
+
+
+module.exports = { conn, mongoURI }

@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Navbar from '../Layouts/Navbar';
+import { fetchProducts } from '../store/productSlice';
 
 const Product = (props) => {
+    const [item, setItem] = useState([])
+
     const { id } = useParams()
-    console.log(id);
+    const image = "https://cdn.shopify.com/s/files/1/0263/2912/0813/products/p8.jpg";
+
+
+    const fetchP = async()=>{
+        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const data = await res.json();
+        setItem(data);
+    }
+
+    useEffect(() => {
+        fetchP();
+        console.log(item);
+    }, []);
+
     return (
         <>
             <Navbar />
@@ -12,11 +29,11 @@ const Product = (props) => {
                 <div className="page_title">Product Details</div>
                 <div className="product_det">
                     <div className="product_img">
-                        <img src={props.image} alt="" />
+                        <img src={item.image} alt="" />
                     </div>
                     <div className="det">
-                        <div className="product_title" >{props.title}</div>
-                        <div className="product_price">₹{props.price}</div>
+                        <div className="product_title" >{item.title}</div>
+                        <div className="product_price">₹{item.price}</div>
                         <div className="add_product">
                             <div className="add_to_cart">
                                 <button className='add'>Add To Cart</button>

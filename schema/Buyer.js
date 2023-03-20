@@ -23,9 +23,9 @@ const BuyersSchema = new Schema({
         type: Boolean,
         default: false
     },
-    timestamp: {
+    date: {
         type: Date,
         default: Date.now
     }
 })
-module.exports = mongoose.model('buyers',BuyersSchema);
+module.exports = BuyersSchema;

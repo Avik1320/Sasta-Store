@@ -1,45 +1,39 @@
 const path = require("path");
 const express = require('express')
-var cors = require('cors')
-require('dotenv').config();
 const app = express()
-const connectToMongo = require('./db')
-let port = process.env.PORT || 8020;
-app.use(express.json({ limit: '50mb' }))
-app.use(express.urlencoded({ limit: '50mb', extended: true }))
+
+var cors = require('cors')  // cors policy handle
 app.use(cors())
 
-app.use(express.static(path.resolve(__dirname, "./client/build")));
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));
 
-connectToMongo();
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-const Items = require('./models/BestDeals')
 
 
-// import bestDeals from './Routes/BestDeals';
+require('dotenv').config();
+let port = process.env.PORT || 8020;
+
+// const Items = require('./schema/BestDeals')
+
+const { conn } = require('./db')
+
 
 
 
 //available routes
-// app.use('/api/bestdeals', bestDeals)
 app.use('/api/auth', require('./Routes/Auth'))
-// app.use(uploadFile({useTempFiles:true}))
+app.use('/api/cart',require('./Routes/Cart'))
 
 
 
 
 
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (_, res) {
-    res.sendFile(
-        path.join(__dirname, "./client/build/index.html"),
-        function (err) {
-            res.status(500).send(err);
-        }
-    );
-});
 
 app.listen(port, () => {
-    console.log(`http://localhost:${port}/`)
+    console.log(`http://localhost:${port}`)
 })
 

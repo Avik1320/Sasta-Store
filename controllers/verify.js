@@ -10,10 +10,12 @@ function verifyToken(req, res,next) {
       if (err) {
          return res.status(403).send({"status":"warn","msg":"Token is not valid"});
       }
-      req.user = user.ID;
-      // console.log("User: "+req.user.id);
+      req.user = user
+
+      // console.log("User: " + user.userId);
       next();
    })
+   
    
 }
 
@@ -31,4 +33,4 @@ function verifyUser(req, res,next) {
 
 }
 
-module.exports = { verifyUser }
+module.exports = { verifyUser, verifyToken }

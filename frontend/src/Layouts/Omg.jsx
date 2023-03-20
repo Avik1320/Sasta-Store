@@ -10,7 +10,7 @@ import Card from '../components/Card';
 
 export const Omg = (props) => {
     const dispatch = useDispatch();
-    const {data:users,status} = useSelector((state) => state.product);
+    const { data: users, status } = useSelector((state) => state.product);
 
 
     // const getUser = async () => {
@@ -20,8 +20,8 @@ export const Omg = (props) => {
 
 
     useEffect(() => {
-        // getUser();
-        dispatch(fetchProducts(props.link));
+        dispatch(fetchProducts(`https://fakestoreapi.com/products`));
+        console.log(users);
     }, []);
 
     return (
@@ -33,7 +33,7 @@ export const Omg = (props) => {
 
             <div className="product_slider">
                 {status === STATUSES.LOADING ?
-                    <MagnifyingGlass
+                    (<MagnifyingGlass
                         visible={true}
                         height="80"
                         width="80"
@@ -42,15 +42,15 @@ export const Omg = (props) => {
                         wrapperclassName="MagnifyingGlass-wrapper"
                         glassColor='#c0efff'
                         color='#e15b64'
-                    />
+                    />)
                     :
-                    users.map((itm, idx) => {
-                        return (
+                        users.map((itm, idx) => {
+                            return (
+                                <Card img={itm.image} title={itm.title} price={itm.price} id={itm.id} key={idx} />
+                            )
 
-                            <Card img={itm.image} title={itm.title} price={itm.price} />
-                        )
-
-                    })
+                        })
+                    
                 }
             </div>
             <div className="all-pro">See All Product</div>

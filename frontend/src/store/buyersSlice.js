@@ -16,7 +16,8 @@ export const loginBuyer = createAsyncThunk('buyers/login', async (cred)=>{
     const result = await fetch('http://localhost:8020/api/auth/login',{
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Cookie': 'cred.cookie'
         },
         body: JSON.stringify({
             email: cred.email,
@@ -24,14 +25,12 @@ export const loginBuyer = createAsyncThunk('buyers/login', async (cred)=>{
         })
     });
     const json = await result.json();
-    console.log(json);
+    // console.log(json);
 
     
     if (json.token) {
         localStorage.setItem('token', json.token);
-        localStorage.setItem('isAdmin', json.fu.isAdmin);
-
-
+        // localStorage.setItem('isAdmin', json.fu.isAdmin);
         return {"status": json.status,"msg": json.msg};
     }
     else{
@@ -45,6 +44,7 @@ export const registerBuyer = createAsyncThunk('buyers/register', async (cred)=>{
     // if(window.location.pathname == 'auth/signup') 
     const result = await fetch("http://localhost:8020/api/auth/signup",{
         method: "POST",
+        // credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -60,10 +60,8 @@ export const registerBuyer = createAsyncThunk('buyers/register', async (cred)=>{
 
     if (json.token) {
         localStorage.setItem('token', json.token);
-        localStorage.setItem('isAdmin', json.buyer.isAdmin);
-
+        // localStorage.setItem('isAdmin', json.buyer.isAdmin);
         return { "status": json.status, "msg": json.msg };
-
     }
     else{
         return json

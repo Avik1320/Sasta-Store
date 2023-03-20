@@ -2,15 +2,15 @@ import React from 'react'
 import { useNavigate, useNavigation } from 'react-router';
 import "../Style/css/main.css";
 
-const Card = ({img, title, price}) => {
+const Card = ({img, title, price, id}) => {
 let navigate = useNavigate()
 
-const handleClick = () =>{
-    navigate ("product/12345")
+const handleClick = (id) =>{
+    navigate (`product/${id}`)
 }
 
     return (
-        <div className="card" onClick={handleClick}>
+        <div className="card" onClick={()=>handleClick(id)}>
             <div className="img_container">
                 <img src={img} alt="" />
             </div>
