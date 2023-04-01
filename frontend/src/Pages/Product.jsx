@@ -52,7 +52,10 @@ const Product = (props) => {
                         </div>
                         <div className="product_description">
                             <div className="des_heading">Description</div>
-                            <ul className="des_det">
+                            <p>
+                                {item.description}
+                            </p>
+                            {/* <ul className="des_det">
                                 <li className="items">Model is 5</li>
                                 <li className="items">Wearing size 2</li>
                                 <li className="items">100% Cotton</li>
@@ -61,7 +64,7 @@ const Product = (props) => {
                                 <li className="items">Questions about fit?Email support@kalatheme.com</li><br />
 
                                 <p>A pant that just works. Made from a 100% non-stretch cotton, the Carpenter Pant has a flattering high-rise, relaxed straight leg, and slightly cropped fit—plus cargo pockets and hammer loop for an original look.</p>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>

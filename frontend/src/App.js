@@ -60,8 +60,7 @@ function App() {
         </Route>
         <Route path="seller" element={<Seller />}>
           <Route  path='*' element={<Seller />} />
-          <Route path="electronics" element={<Seller />} />
-
+            
         </Route>
         <Route path="cart" element={<Cart />} />
         <Route path="*" element={<Error />} />
