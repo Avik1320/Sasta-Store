@@ -21,7 +21,6 @@ export const Omg = (props) => {
 
     useEffect(() => {
         dispatch(fetchProducts(`https://fakestoreapi.com/products`));
-        console.log(users);
     }, []);
 
     return (

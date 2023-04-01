@@ -19,7 +19,6 @@ const Product = (props) => {
 
     useEffect(() => {
         fetchP();
-        console.log(item);
     }, []);
 
     return (
