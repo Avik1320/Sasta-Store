@@ -10,14 +10,19 @@ import Foods from '../Layouts/Foods'
 import Card from '../components/Card'
 // import '@fortawesome/fontawesome-svg-core/styles.css';
 import Product from './Product'
+import { useEffect } from 'react'
 
 
 
 
 const Home = () => {
+
+
+
+
   return (
     <div className='home'>
-      <Navbar/>
+      <Navbar page="home"/>
       <Catagory/>
       <Banner/>
       <Omg link='https://fakestoreapi.com/products' />

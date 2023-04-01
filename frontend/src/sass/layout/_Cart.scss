@@ -19,56 +19,49 @@
         padding: 10px 10px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        // gap: 20px;
+        // background-color: red;
+        width: 100vw;
+        align-items: center;
+        margin-top: 8vh;
 
-        .seller_main {
+        .products {
+            // background-color: red;
             display: flex;
-
-            .seller_catagory {
-                width: 20%;
-                min-height: 100vh;
-                // background-color: red;
-                padding: 30px 50px;
-                display: flex;
-                flex-direction: column;
-                gap: 40px;
-
-                .active {
-                    background-color: red;
-                }
-
-                .typ-cata {
-                    border: 1px solid grey;
-                    padding: 10px 10px;
-                    border-radius: 10px;
-                    display: flex;
-                    justify-content: center;
-                    // align-self: center;
-                    cursor: pointer;
-                    // background-color: white;
+            flex-direction: column;
+            width: 50%;
+            gap: 10px;
+            // border: 2px solid rgb(83, 82, 82);
+            box-shadow: 1px 1px 24px 0px rgba(0,0,0,0.75);
 
 
-
-                    &:hover {
-                        box-shadow: 7px 7px 33px -9px rgba(0, 0, 0, 0.75);
-                    }
-                }
-            }
-
-            .seller_product {
-                width: 80%;
-                min-height: 100vh;
-                padding: 30px 10px;
-                // background-color: yellow;
-                border: 1px solid red;
-                display: flex;
-                // justify-content: center;
-                flex-direction: column;
-                gap: 20px;
-
-
-
+            .title {
+                color: red;
+                font-size: 22px;
+                font-weight: 700;
+                // text-transform: uppercase;
+                text-align: center;
             }
         }
+       
+
+    }
+    .place-order{
+        background-color: #f94c02;
+        // position: absolute;
+        display: flex;
+        // justify-content: flex-end;
+        justify-content: center;
+        margin-right: 10px;
+        margin-left: 10px;
+        width: 98%;
+        padding: 8px 8px;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        color: white;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
     }
 }

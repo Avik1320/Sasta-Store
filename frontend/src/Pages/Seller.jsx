@@ -10,6 +10,7 @@ import { Link, useParams } from 'react-router-dom';
 const Seller = () => {
     const param = useParams();
     const params = param["*"];
+    console.log(param);
     
     return (
         <div className='seller'>
@@ -23,7 +24,7 @@ const Seller = () => {
                     <Link to="cloths" className={`typ-cata ${params==="cloths"?"active":""}`}>Cloths</Link>
                 </div>
                 <div className="seller_product">
-                    <h1>{params===""?"All":params}</h1>
+                    <h1>{params===undefined?"All":params}</h1>
                     <SellerProducts/>
                     <SellerProducts/>
                     <SellerProducts/>

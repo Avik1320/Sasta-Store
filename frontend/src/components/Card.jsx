@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate, useNavigation } from 'react-router';
 import "../Style/css/main.css";
 
@@ -8,6 +8,9 @@ let navigate = useNavigate()
 const handleClick = (id) =>{
     navigate (`product/${id}`)
 }
+
+
+
 
     return (
         <div className="card" onClick={()=>handleClick(id)}>

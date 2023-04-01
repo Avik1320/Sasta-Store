@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Image from '../Assets/omg-deal.jpg';
 import Image2 from '../Assets/best-deals/phone1.jpg';
 import { useState, useEffect } from 'react';
@@ -18,11 +18,40 @@ export const Omg = (props) => {
     //     setUser(await response.json());
     // }
 
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const overflowDivRef = useRef(null);
+    const scrollWidth = 500;
 
     useEffect(() => {
         dispatch(fetchProducts(`https://fakestoreapi.com/products`));
         console.log(users);
+        console.log(overflowDivRef.current.offsetWidth  );
+        
+
     }, []);
+
+    
+    const handleMoveLeft = () => {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const scrollDistance = vw * 0.5;
+        const newScrollPosition = Math.max(0, scrollPosition - scrollDistance);
+        setScrollPosition(newScrollPosition);
+        overflowDivRef.current.scrollTo({
+          left: newScrollPosition,
+          behavior: 'smooth'
+        });
+      };
+    
+      const handleMoveRight = () => {
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+        const scrollDistance = vw * 0.5;
+        const newScrollPosition = Math.min(overflowDivRef.current.scrollWidth - overflowDivRef.current.offsetWidth, scrollPosition + scrollDistance);
+        setScrollPosition(newScrollPosition);
+        overflowDivRef.current.scrollTo({
+          left: newScrollPosition,
+          behavior: 'smooth'
+        });
+      };
 
     return (
         <div className='omg'>
@@ -31,7 +60,8 @@ export const Omg = (props) => {
             </div>
             <span className='omg_title'>Lowest Prices On The Best Brands</span>
 
-            <div className="product_slider">
+            <button onClick={handleMoveLeft}>Left</button>
+            <div className="product_slider" ref={overflowDivRef}>
                 {status === STATUSES.LOADING ?
                     (<MagnifyingGlass
                         visible={true}
@@ -44,15 +74,16 @@ export const Omg = (props) => {
                         color='#e15b64'
                     />)
                     :
-                        users.map((itm, idx) => {
-                            return (
-                                <Card img={itm.image} title={itm.title} price={itm.price} id={itm.id} key={idx} />
-                            )
+                    users.map((itm, idx) => {
+                        return (
+                            <Card img={itm.image} title={itm.title} price={itm.price} id={itm.id} key={idx} />
+                        )
 
-                        })
-                    
+                    })
+
                 }
             </div>
+            <button onClick={handleMoveRight}>Right</button>
             <div className="all-pro">See All Product</div>
 
         </div>

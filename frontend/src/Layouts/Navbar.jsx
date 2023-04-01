@@ -24,6 +24,20 @@ const Navbar = ({ page }) => {
   // const { data, status } = useSelector((state) => state.buyer);
   const { data, status } = useSelector((state) => state.user);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+
+
+
+
   const [user, setUser] = useState({
     isAdmin: "false",
     fname: "User"
@@ -36,11 +50,10 @@ const Navbar = ({ page }) => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('token'))
-    {
+    if (localStorage.getItem('token')) {
       dispatch(fetchUser(localStorage.getItem('token')))
     }
-      // }
+    // }
   }, [])
 
 
@@ -61,19 +74,37 @@ const Navbar = ({ page }) => {
         <Link to="/" className="title">SastaStore</Link>
       </div>
       <div className="nav_acc">
-        {page === "seller" ? "" : <Link to="cart" className="profile">
+        {page === "seller" ? "" : <Link to="/cart" className="profile">
           <FontAwesomeIcon icon={faCartShopping} />
           <span >Cart</span>
         </Link>}
-        {/* 
-        { page === "seller" ? "" : <Link to="seller" className="profile">
-          Seller
-        </Link>}
-         */}
-        <Link to="/auth" className="profile" style={{ pointerEvents: `${localStorage.getItem('token') ? "none":""}` }}>
+
+        { page === "home" ?<Link to="seller" className="profile">
+          <span >Seller</span>
+        </Link>:""}
+
+        <div className="dropdown" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <div className="dropdown-toggle">
+            <FontAwesomeIcon icon={faUser} />
+            <span className="text">{data.username ? data.username : "User"}</span>
+          </div>
+          {isOpen && (
+            <div class="dropdown-content">
+              <a href="#home">Sign In</a>
+              <a href="#about">Sign Up</a>
+              <a href="#contact">Logout</a>
+              <a href="#contact">Veiw Profile</a>
+            </div>
+          )} 
+        </div>
+
+
+
+
+        {/* <Link to="/auth" className="profile" style={{ pointerEvents: `${localStorage.getItem('token') ? "none" : ""}` }}>
           <FontAwesomeIcon icon={faUser} />
           <span className="text">{data.username ? data.username : "User"}</span>
-        </Link>
+        </Link> */}
         {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""}
         {page === "seller" && <button className='additem'>Add Product</button>}
       </div>
@@ -81,6 +112,10 @@ const Navbar = ({ page }) => {
         <FontAwesomeIcon icon={faSearch} className='faSearch'></FontAwesomeIcon>
         <input type="text" name="" id="" />
       </div>
+
+
+
+
 
 
 
