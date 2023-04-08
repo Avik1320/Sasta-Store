@@ -23,6 +23,25 @@ const BuyersSchema = new Schema({
         type: Boolean,
         default: false
     },
+    cart:[
+        {
+            p_id:{
+                type: String
+            },
+            title:{
+                type: String
+            },
+            price:{
+                type: Number
+            }, 
+            quantity:{
+                type: Number
+            }, 
+            imageurl:{
+                type: String
+            }
+        }
+    ],
     date: {
         type: Date,
         default: Date.now

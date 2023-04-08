@@ -12,7 +12,6 @@ export const STATUSES = Object.freeze({
 
 
 export const loginBuyer = createAsyncThunk('buyers/login', async (cred)=>{
-    
     const result = await fetch('http://localhost:8020/api/auth/login',{
         method: "POST",
         headers: {

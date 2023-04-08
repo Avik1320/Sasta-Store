@@ -11,13 +11,6 @@ import Card from '../components/Card';
 export const Omg = (props) => {
     const dispatch = useDispatch();
     const { data: users, status } = useSelector((state) => state.product);
-
-
-    // const getUser = async () => {
-    //     const response = await fetch('https://fakestoreapi.com/products')
-    //     setUser(await response.json());
-    // }
-
     const [scrollPosition, setScrollPosition] = useState(0);
     const overflowDivRef = useRef(null);
     const scrollWidth = 500;

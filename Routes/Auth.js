@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const auth  = require('../controllers/authentication');
-const verify = require('../controllers/verify');
+const verify = require('../middleware/verify');
 
 
 

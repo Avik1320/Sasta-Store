@@ -12,7 +12,7 @@ function testing(req, res) {
 async function signup(req, res) {
     const { fname, lname, email, password, isAdmin } = req.body;
     try {
-        Buyers.findOne({ email })
+        Buyers.findOne({ email }).select("-password")
             .then(fu => {
                 if (fu)
                     return res.status(200).send({
@@ -85,7 +85,6 @@ async function signup(req, res) {
 
 
 async function login(req, res) {
-    //     // console.log("hellowe");
     const { email, password } = req.body;
     try {
         Buyers.findOne({ email })
@@ -97,13 +96,13 @@ async function login(req, res) {
                     });
                 }
                 bcrypt.compare(password, fu.password)
-                    .then(passwordChk => {
-                        if (!passwordChk) return res.status(409).send({
-                            "status": "warn",
-                            "msg": "credentials doesn't matched"
-                        });
-
-                        // create jwt token
+                .then((passwordChk) => {
+                    if (!passwordChk) return res.status(409).send({
+                        "status": "warn",
+                        "msg": "credentials doesn't matched"
+                    });
+                    
+                    // create jwt token
                         const token = jwt.sign({
                             userId: fu._id,
                             username: fu.fname
@@ -115,7 +114,11 @@ async function login(req, res) {
                         })
                     })
                     .catch(error => {
-                        return res.status(400).send({ error: "Password does not Match" })
+                        console.log("till here");
+                        return res.status(400).send({
+                            "status": "warn",
+                            "msg": "credentials doesn't matched"
+                        })
                     })
             })
 

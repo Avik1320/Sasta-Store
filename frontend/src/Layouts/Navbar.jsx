@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchUser } from '../store/userSlice';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -20,6 +21,7 @@ import { fetchUser } from '../store/userSlice';
 const Navbar = ({ page }) => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   // const { data, status } = useSelector((state) => state.buyer);
   const { data, status } = useSelector((state) => state.user);
@@ -46,7 +48,8 @@ const Navbar = ({ page }) => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    window.location.reload();
+    dispatch(fetchUser(localStorage.getItem('token')))
+    navigate('/')
   }
 
   useEffect(() => {
@@ -74,7 +77,7 @@ const Navbar = ({ page }) => {
         <Link to="/" className="title">SastaStore</Link>
       </div>
       <div className="nav_acc">
-        {page === "seller" ? "" : <Link to="/cart" className="profile">
+        {page === "seller" ? "" : <Link to={localStorage.getItem('token') ? `/cart` : `/auth`} className="profile">
           <FontAwesomeIcon icon={faCartShopping} />
           <span >Cart</span>
         </Link>}
@@ -90,10 +93,10 @@ const Navbar = ({ page }) => {
           </div>
           {isOpen && (
             <div class="dropdown-content">
-              <a href="#home">Sign In</a>
-              <a href="#about">Sign Up</a>
-              <a href="#contact">Logout</a>
-              <a href="#contact">Veiw Profile</a>
+              {localStorage.getItem('token') ? "" : <Link to='/auth'>Sign In</Link>}
+              {localStorage.getItem('token') ? "":<Link to='/auth/signup'>Sign Up</Link> }
+              {localStorage.getItem('token') ? <Link to='/'span onClick={handleLogout}>Logout</Link>:""}
+              {localStorage.getItem('token') ? <a href="#contact">Veiw Profile</a>:""}
             </div>
           )} 
         </div>
@@ -105,7 +108,7 @@ const Navbar = ({ page }) => {
           <FontAwesomeIcon icon={faUser} />
           <span className="text">{data.username ? data.username : "User"}</span>
         </Link> */}
-        {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""}
+        {/* {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""} */}
         {page === "seller" && <button className='additem'>Add Product</button>}
       </div>
       <div className="search">

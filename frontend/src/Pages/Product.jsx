@@ -2,23 +2,41 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Navbar from '../Layouts/Navbar';
-import { fetchProducts } from '../store/productSlice';
+import { addToCart, checkIfItemIsInCart } from '../store/cartSlice';
 
 const Product = (props) => {
     const [item, setItem] = useState([])
+    const { chk } = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch()
 
     const { id } = useParams()
-    const image = "https://cdn.shopify.com/s/files/1/0263/2912/0813/products/p8.jpg";
 
 
-    const fetchP = async()=>{
+    const fetchP = async () => {
         const res = await fetch(`https://fakestoreapi.com/products/${id}`);
         const data = await res.json();
         setItem(data);
     }
 
+    const handleCart = (id, title, price, image) => {
+        // navigate(`product/${id}`)
+        const cred = {
+            id: id,
+            title,
+            price,
+            image
+        }
+        dispatch(addToCart(cred))
+        dispatch(checkIfItemIsInCart(id))
+        fetchP()
+    }
+
+
+
     useEffect(() => {
         fetchP();
+        dispatch(checkIfItemIsInCart(id))
     }, []);
 
     return (
@@ -34,8 +52,9 @@ const Product = (props) => {
                         <div className="product_title" >{item.title}</div>
                         <div className="product_price">₹{item.price}</div>
                         <div className="add_product">
-                            <div className="add_to_cart">
-                                <button className='add'>Add To Cart</button>
+
+                            <div className="add_to_cart" onClick={() => handleCart(id, item.title, item.price, item.image)}>
+                                <button disabled={chk == 'true' ? true : false} className='add' >{chk == 'true' ? 'Already in cart' : 'Add to cart'} </button>
                             </div>
                             <div className="buy_now">
                                 <button className='buy'>Buy Now</button>

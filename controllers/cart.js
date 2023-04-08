@@ -7,81 +7,59 @@ const JWT = process.env.JWT_SECRET_KEY
 
 
 async function add(req, res) {
-    const { fname, lname, email, password, isAdmin } = req.body;
+    // const { id, title, price,image} = req.body;
+    const temp={
+        p_id: req.body.id,
+        title: req.body.title,
+        price: req.body.price,
+        imageurl: req.body.imageurl
+    }
+    Buyers.findByIdAndUpdate(req.user.userId, { $push: { cart: temp } }, { upsert: true })
+        .then(result => {
+            // console.log(result);
+        })
+        .catch(error => {
+            console.error(`Error adding item to cart: ${error}`);
+        })
+}
+async function remove(req, res) {
+    const itemId = req.params.id;
+    Buyers.findByIdAndUpdate(req.user.userId, { $pull: { cart: { _id: itemId } } }, { new: true })
+        .then(result => {
+            res.send(result); 
+        })
+        .catch(error => {
+            console.error(`Error removing item from cart: ${error}`);
+        })
+}
+async function fetch(req, res) {
+    // const { id, title, price,image} = req.body;
+    Buyers.findById(req.user.userId,{cart:1})
+        .then(result => {
+            res.send(result)
+        })
+        .catch(error => {
+            console.error(`Error adding item to cart: ${error}`);
+        })
+}
+async function checkIfItemIsInCart(req,res) {
     try {
-        Buyers.findOne({ email })
-            .then(fu => {
-                if (fu)
-                    return res.status(200).send({
-                        "status": "warn",
-                        "msg": "User already exists"
-                    });
-                else {
-                    bcrypt.hash(password, 10)
-                        .then(hashed => {
-                            const buyer = new Buyers({
-                                fname, lname, email, password: hashed, isAdmin
-                            })
-                            buyer.save();
-                            const token = jwt.sign({
-                                userId: buyer._id,
-                                username: buyer.fname
-                            }, JWT);
-                            // res.cookie("jwtToken", token, { maxAge: 3600000, httpOnly: true })
-                            // Set the cookie
-                            // res.cookie('jwtToken', token);
-                            // Send a response
-                            res
-                                .send({
-                                    "status": "success",
-                                    "msg": "Successfully created your account",
-                                    "token": token
-                                })
-                        })
-                        .catch(e => {
-                            return res.status(500).send({
-                                error: "Unable to hashed password"
-                            })
-                        })
-                }
-            })
-            .catch(err => {
-                res.status(500).send({
-                    error: err
-                })
-            })
-
-        // if (fu) {
-        //     return res.status(409).send({
-        //         "status": "warn", "msg": "User already exists"
-        //     });
-        // }
-        // const salt = bcrypt.genSaltSync(saltRounds);
-        // const hash = bcrypt.hashSync(password, salt);
-
-        // const buyer = await Buyers.create({
-        //     fname, lname, email, password, isAdmin
-        // })
-        // const payload = {
-        //     ID: {
-        //         id: buyer.id
-        //     }
-        // }
-        // var token = jwt.sign(payload, JWT_SECRET_KEY);
-
-        // res.send({
-        //     "status": "success",
-        //     "msg": "Successfully created your account",
-        //     buyer,
-        //     token
-        // })
+        const buyer = await Buyers.findOne({ _id: req.user.userId, cart: { $elemMatch: { p_id: req.params.id } } });
+        if (buyer && buyer.cart) {
+            // Item is in cart
+            res.send({"msg":"true"});
+        } else {
+            // Item is not in cart
+            res.send({"msg":"false"});
+        }
     } catch (error) {
-        res.send(error)
+        console.error(`Error checking if item is in cart: ${error}`);
+        return false;
     }
 }
 
 
 
 
-module.exports = { add }
+module.exports = { add, fetch, remove, checkIfItemIsInCart }
 
