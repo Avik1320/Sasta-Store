@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchUser } from '../store/userSlice';
 import { useNavigate } from "react-router-dom";
+import Modalform from './Modalform';
 
 
 
@@ -77,14 +78,7 @@ const Navbar = ({ page }) => {
         <Link to="/" className="title">SastaStore</Link>
       </div>
       <div className="nav_acc">
-        {page === "seller" ? "" : <Link to={localStorage.getItem('token') ? `/cart` : `/auth`} className="profile">
-          <FontAwesomeIcon icon={faCartShopping} />
-          <span >Cart</span>
-        </Link>}
 
-        { page === "home" ?<Link to="seller" className="profile">
-          <span >Seller</span>
-        </Link>:""}
 
         <div className="dropdown" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className="dropdown-toggle">
@@ -92,29 +86,37 @@ const Navbar = ({ page }) => {
             <span className="text">{data.username ? data.username : "User"}</span>
           </div>
           {isOpen && (
-            <div class="dropdown-content">
+            <div className="dropdown-content">
               {localStorage.getItem('token') ? "" : <Link to='/auth'>Sign In</Link>}
-              {localStorage.getItem('token') ? "":<Link to='/auth/signup'>Sign Up</Link> }
-              {localStorage.getItem('token') ? <Link to='/'span onClick={handleLogout}>Logout</Link>:""}
-              {localStorage.getItem('token') ? <a href="#contact">Veiw Profile</a>:""}
+              {localStorage.getItem('token') ? "" : <Link to='/auth/signup'>Sign Up</Link>}
+              {localStorage.getItem('token') ? <Link to='/' span onClick={handleLogout}>Logout</Link> : ""}
+              {localStorage.getItem('token') ? <a href="#contact">Veiw Profile</a> : ""}
             </div>
-          )} 
+          )}
         </div>
+        {page === "home" ? <Link to="seller" className="profile">
+          <span >Seller</span>
+        </Link> : ""}
+        {page === "seller" ? "" : <Link to={localStorage.getItem('token') ? `/cart` : `/auth`} className="profile">
+          <FontAwesomeIcon icon={faCartShopping} />
+          <span >Cart</span>
+        </Link>}
+        <div className="addproduct">
 
-
-
-
-        {/* <Link to="/auth" className="profile" style={{ pointerEvents: `${localStorage.getItem('token') ? "none" : ""}` }}>
-          <FontAwesomeIcon icon={faUser} />
-          <span className="text">{data.username ? data.username : "User"}</span>
-        </Link> */}
-        {/* {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""} */}
-        {page === "seller" && <button className='additem'>Add Product</button>}
+          {page === "seller" && <span className='additem'><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Add Product
+          </button></span>}
+        </div>
       </div>
       <div className="search">
         <FontAwesomeIcon icon={faSearch} className='faSearch'></FontAwesomeIcon>
         <input type="text" name="" id="" />
       </div>
+      {/* <Link to="/auth" className="profile" style={{ pointerEvents: `${localStorage.getItem('token') ? "none" : ""}` }}>
+          <FontAwesomeIcon icon={faUser} />
+          <span className="text">{data.username ? data.username : "User"}</span>
+        </Link> */}
+      {/* {localStorage.getItem('token') ? <div className="profile" onClick={handleLogout}><FontAwesomeIcon icon={faPowerOff} /></div> : ""} */}
 
 
 

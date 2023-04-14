@@ -247,8 +247,12 @@
         grid-column: 4/5;
         grid-row: 1;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         padding-left: 40px;
+        // background-color: red;
+        align-items: center;
+        // gap: 8rem;
+
 
         @include mobile {
             display: none;
@@ -267,6 +271,10 @@
             align-items: center;
             color: white;
             text-decoration: none;
+            // background-color: yellow;
+            // position: absolute;
+            padding-left: 8rem;
+
 
 
 
@@ -291,10 +299,13 @@
 
         .dropdown {
             position: absolute;
-            top: -20;
+            top: 20px;
             color: white;
-            margin-left: 100px;
+            // margin-left: 100px;
             z-index: 100;
+            // background-color: green;
+            display: flex;
+            justify-content: flex-end;
 
             .dropdown-content {
                 display: flex;
@@ -316,6 +327,11 @@
 
 
             }
+        }
+        .additem{
+            position: absolute;
+            top: 10px;
+            right: 90px;
         }
     }
 

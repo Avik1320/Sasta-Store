@@ -1,4 +1,3 @@
-
 @import '../abstracts/mixin';
 
 a:-webkit-any-link {
@@ -7,11 +6,13 @@ a:-webkit-any-link {
 }
 
 .seller {
+
     .navbar {
         position: -webkit-sticky;
         position: sticky;
         top: 0;
         z-index: 2;
+
         .nav_logo {
             img {
                 display: none;
@@ -21,8 +22,9 @@ a:-webkit-any-link {
         .search {
             display: none;
         }
-        .nav_acc{
-            .additem{
+
+        .nav_acc {
+            .additem {
                 padding: 10px 10px;
                 border-radius: 10px;
                 display: flex;
@@ -30,9 +32,10 @@ a:-webkit-any-link {
                 cursor: pointer;
                 font-weight: bold;
                 border: none;
-                &:hover {
-                    box-shadow: 7px 7px 33px -9px white;
-                }
+
+                // &:hover {
+                //     box-shadow: 7px 7px 33px -9px white;
+                // }
             }
         }
 
@@ -41,57 +44,80 @@ a:-webkit-any-link {
     .seller_main {
         display: flex;
 
-        .seller_catagory {
-            width: 20%;
-            min-height: 100vh;
+
+        .sellercat {
+            width: 20vw;
+            position: fixed;
+            // bottom: 0;
+            left: 0;
+
             // background-color: red;
-            padding: 30px 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+            // position: -webkit-sticky;
+            //     position: sticky;
+            //     top: 0;
 
-            .active {
-                background-color: red;
-            }
-
-            .typ-cata {
-                border: 1px solid grey;
-                padding: 10px 10px;
-                border-radius: 10px;
+            .seller_catagory {
+                width: 80%;
+                min-height: 100vh;
+                margin-top: 3rem;
+                // background-color: red;
                 display: flex;
-                justify-content: center;
-                // align-self: center;
-                cursor: pointer;
-                // background-color: white;
+                flex-direction: column;
+                gap: 20px;
+                // background-color: red;
 
 
 
-                &:hover {
-                    box-shadow: 7px 7px 33px -9px rgba(0, 0, 0, 0.75);
+
+                .active {
+                    background-color: red;
+                }
+
+                .typ-cata {
+                    border: 1px solid grey;
+                    padding: 10px 10px;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: center;
+                    // align-self: center;
+                    cursor: pointer;
+                    // background-color: white;
+
+
+
+                    &:hover {
+                        box-shadow: 7px 7px 33px -9px rgba(0, 0, 0, 0.75);
+                    }
                 }
             }
+
         }
 
-        .seller_product {
-            width: 80%;
-            min-height: 100vh;
-            padding: 30px 10px;
-            // background-color: yellow;
-            border: 1px solid red;
-            display: flex;
-            // justify-content: center;
-            flex-direction: column;
-            gap: 20px;
 
-            .additem {
-                width: 10%;
-                position: -webkit-sticky;
-                position: sticky;
-                top: 20px;
-                right: 0px;
+        .sellerprod {
+            width: 80vw;
+            margin-left: 18rem;
+            // overflow-y: scroll;
+
+            .seller_product {
+                width: 100%;
+                min-height: 100vh;
+                padding: 30px 10px;
+                // background-color: yellow;
+                border: 1px solid red;
+                display: flex;
+                // justify-content: center;
+                flex-direction: column;
+                gap: 20px;
+
+
+
+                // j
+
+
             }
 
-
         }
+
     }
 }

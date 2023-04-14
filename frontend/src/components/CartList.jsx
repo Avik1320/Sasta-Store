@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../store/cartSlice';
 
 
-const SellerProducts = ({ imageurl, p_id, price, title, id, onRemove }) => {
+const CartList = ({ imageurl, p_id, price, title, id, onRemove }) => {
     const dispatch = useDispatch();
     const param = window.location.pathname;
 
@@ -27,9 +27,9 @@ const SellerProducts = ({ imageurl, p_id, price, title, id, onRemove }) => {
         }
 
     }
-    // const handleClick = (id) => {
-    //     onRemove(id);
-    // }
+    const handleClick = (id) => {
+        onRemove(id);
+    }
 
 
 
@@ -51,9 +51,7 @@ const SellerProducts = ({ imageurl, p_id, price, title, id, onRemove }) => {
                     <span className='quatity'>{quatity}</span>
                     <button className="ctrl plus" onClick={handleincrement}><span className="plus">+</span></button>
                 </div>
-                <button className='remove-btn' 
-                // onClick={() => handleClick(id)}
-                >Remove</button>
+                <button className='remove-btn' onClick={() => handleClick(id)}>Remove</button>
             </div>
             <hr />
 
@@ -62,4 +60,4 @@ const SellerProducts = ({ imageurl, p_id, price, title, id, onRemove }) => {
     )
 }
 
-export default SellerProducts
+export default CartList

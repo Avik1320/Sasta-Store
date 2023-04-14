@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import SellerProducts from '../components/SellerProducts'
 import Navbar from '../Layouts/Navbar'
 import '../Style/css/main.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,6 +7,7 @@ import { MagnifyingGlass } from 'react-loader-spinner'
 import { STATUSES } from '../store/buyersSlice';
 import { useNavigate } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
+import CartList from '../components/CartList'
 
 
 
@@ -47,7 +47,7 @@ const Cart = () => {
             <>
             {
               data.map((itm, idx) => {
-                return (<SellerProducts imageurl={itm.imageurl} p_id={itm.p_id} price={itm.price} title={itm.title} key={idx} id={itm._id} onRemove={handleRemove} />)
+                return (<CartList imageurl={itm.imageurl} p_id={itm.p_id} price={itm.price} title={itm.title} key={idx} id={itm._id} onRemove={handleRemove} />)
               })
             }
             < div className="place-order">Place Order</div>

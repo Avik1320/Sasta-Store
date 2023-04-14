@@ -13,6 +13,7 @@ import Test from "./Pages/Test";
 import Product from "./Pages/Product";
 import Seller from "./Pages/Seller";
 import Cart from "./Pages/Cart";
+import Modalform from "./Layouts/Modalform";
 
 
 
@@ -58,13 +59,13 @@ function App() {
             title="Buckle Wrap Skirt"
             price="1999" />} />
         </Route>
+        <Route path="add-product" element={<Modalform/>}/>
         <Route path="seller" element={<Seller />}>
-          <Route  path='*' element={<Seller />} />
-            
+          <Route path='*' element={<Seller />} />
+
         </Route>
         <Route path="cart" element={<Cart />} />
         <Route path="*" element={<Error />} />
-
       </Routes>
     </>
 
